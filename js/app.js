@@ -55,7 +55,7 @@ let isEvent = false;
 objects_1.startButton.on("pointerdown", () => {
     if (!isEvent) {
         isEvent = true;
-        lounch();
+        launch();
     }
 });
 console.log(isEvent);
@@ -85,7 +85,7 @@ const betContainer = new PIXI.Container();
 betContainer.x = 500;
 betContainer.y = 200;
 app.stage.addChild(betContainer);
-const betText = new PIXI.Text(`Select your runner to bet on!`, objects_1.style2);
+const betText = new PIXI.Text(`Select your runner to bet!!!!!!!!! on!`, objects_1.style2);
 betContainer.addChild(betText);
 //  Bet Pets Pointer Events
 let selectedPet = null;
@@ -152,7 +152,7 @@ const checkBet = (pet) => {
 };
 //  Function Lounch
 const pets = [objects_1.cat, objects_1.rabbit, objects_1.dog, objects_1.pig];
-function lounch() {
+function launch() {
     bankText.text = `Bank: ${bank}`;
     objects_1.maskContainer.removeChildren();
     const arrOfWinners = [];

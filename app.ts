@@ -11,7 +11,7 @@ import {
   startButton,
   resetButton,
   style,
-  style2
+  style2,
 } from "./objects";
 import * as TWEEN from "@tweenjs/tween.js";
 import gsap from "gsap";
@@ -52,12 +52,11 @@ let isEvent = false;
 startButton.on("pointerdown", () => {
   if (!isEvent) {
     isEvent = true;
-    lounch();
+    launch();
   }
 });
 
 console.log(isEvent);
-
 
 //  Counter Container Number Race
 let count = 0;
@@ -98,7 +97,7 @@ betContainer.y = 200;
 
 app.stage.addChild(betContainer);
 
-const betText = new PIXI.Text(`Select your runner to bet on!`, style2);
+const betText = new PIXI.Text(`Select your runner to bet!!!!!!!!! on!`, style2);
 betContainer.addChild(betText);
 
 //  Bet Pets Pointer Events
@@ -107,7 +106,6 @@ let selectedPet: any = null;
 const petText = new PIXI.Text(`Your bet is ${selectedPet}! Good luck!`, style2);
 
 pig.on("pointerdown", () => {
-
   selectedPet = "Pig";
   betContainer.removeChildren();
   petText.text = `Yor bet is ${selectedPet}! Good luck!`;
@@ -184,7 +182,7 @@ const checkBet = (pet: string) => {
 
 //  Function Lounch
 const pets = [cat, rabbit, dog, pig];
-function lounch() {
+function launch() {
   bankText.text = `Bank: ${bank}`;
   maskContainer.removeChildren();
   const arrOfWinners: any = [];
