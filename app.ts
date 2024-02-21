@@ -56,6 +56,7 @@ startButton.on("pointerdown", () => {
   }
 });
 
+console.log(isEvent);
 
 
 //  Counter Container Number Race

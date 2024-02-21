@@ -58,6 +58,7 @@ objects_1.startButton.on("pointerdown", () => {
         lounch();
     }
 });
+console.log(isEvent);
 //  Counter Container Number Race
 let count = 0;
 const counterContainer = new PIXI.Container();
