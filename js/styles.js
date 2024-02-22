@@ -23,28 +23,30 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.pig = exports.dog = exports.cat = exports.rabbit = void 0;
+exports.style2 = exports.style = void 0;
 const PIXI = __importStar(require("pixi.js"));
-const objects_1 = require("./objects");
-class Player extends PIXI.AnimatedSprite {
-    id;
-    constructor(textures, x, y, width, height, animationSpeed, id) {
-        super(textures);
-        this.x = x;
-        this.y = y;
-        this.width = width;
-        this.height = height;
-        this.animationSpeed = animationSpeed;
-        this.anchor.set(0.5);
-        (this.eventMode = "static"), (this.cursor = "pointer"), (this.id = id);
-    }
-    run() { }
-}
-const rabbit = new Player(objects_1.textureRabbit, 80, 600, 80, 80, 0.4, "Rabbit");
-exports.rabbit = rabbit;
-const cat = new Player(objects_1.textureCat, 80, 550, 80, 80, 0.4, "Cat");
-exports.cat = cat;
-const dog = new Player(objects_1.textureDog, 80, 650, 80, 80, 0.2, "dog");
-exports.dog = dog;
-const pig = new Player(objects_1.texturePig, 80, 700, 120, 80, 0.4, "Pig");
-exports.pig = pig;
+//  Text Style
+exports.style = new PIXI.TextStyle({
+    fontFamily: "Waltograph",
+    fontSize: 48,
+    fill: ["lightblue", "violet"],
+    stroke: "#000000",
+    strokeThickness: 4,
+    dropShadow: true,
+    dropShadowColor: "#00FFFF",
+    dropShadowBlur: 30,
+    dropShadowDistance: 9,
+});
+exports.style2 = new PIXI.TextStyle({
+    fontFamily: "Arial",
+    fontSize: 55,
+    fill: ["#ffffff"],
+    stroke: "#ff00ff",
+    strokeThickness: 4,
+    dropShadow: true,
+    dropShadowColor: "#ff00ff",
+    dropShadowBlur: 20,
+    dropShadowAngle: 0,
+    dropShadowDistance: 0,
+    align: "center",
+});

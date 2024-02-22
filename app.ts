@@ -1,20 +1,55 @@
 import * as PIXI from "pixi.js";
 import {
-  rabbit,
-  dog,
-  pig,
-  cat,
   start,
   line,
   finish,
   maskContainer,
   startButton,
   resetButton,
-  style,
-  style2,
 } from "./objects";
+// import { rabbit, cat, dog, pig } from "./Player";
+import { style, style2 } from "./styles";
 import * as TWEEN from "@tweenjs/tween.js";
 import gsap from "gsap";
+import { textureRabbit, textureCat, textureDog, texturePig } from "./objects";
+
+class Player extends PIXI.AnimatedSprite {
+  id: string;
+  constructor(
+    textures: PIXI.Texture[],
+    x: number,
+    y: number,
+    width: number,
+    height: number,
+    animationSpeed: number,
+    id: string
+  ) {
+    super(textures);
+    this.x = x;
+    this.y = y;
+    this.width = width;
+    this.height = height;
+    this.animationSpeed = animationSpeed;
+    this.anchor.set(0.5);
+    (this.eventMode = "static"), (this.cursor = "pointer"), (this.id = id);
+
+    this.on("pointerdown", this.select.bind(this));
+  }
+  select() {
+    selectedPet = this.id;
+    betContainer.removeChildren();
+    petText.text = `Your bet is ${selectedPet}! Good luck!`;
+    betContainer.addChild(petText);
+    bankContainer.removeChildren();
+    bank -= 20;
+    bankText.text = `Bank: ${bank}`;
+    bankContainer.addChild(bankText);
+  }
+}
+const cat = new Player(textureCat, 80, 545, 80, 80, 0.4, "Cat");
+const rabbit = new Player(textureRabbit, 80, 600, 80, 80, 0.4, "Rabbit");
+const dog = new Player(textureDog, 80, 660, 80, 80, 0.2, "dog");
+const pig = new Player(texturePig, 80, 710, 120, 80, 0.4, "Pig");
 
 //  Pixi App
 const app = new PIXI.Application({
@@ -56,8 +91,6 @@ startButton.on("pointerdown", () => {
   }
 });
 
-console.log(isEvent);
-
 //  Counter Container Number Race
 let count = 0;
 
@@ -97,7 +130,7 @@ betContainer.y = 200;
 
 app.stage.addChild(betContainer);
 
-const betText = new PIXI.Text(`Select your runner to bet!!!!!!!!! on!`, style2);
+const betText = new PIXI.Text(`Select your runner to bet on!`, style2);
 betContainer.addChild(betText);
 
 //  Bet Pets Pointer Events
@@ -105,49 +138,13 @@ let selectedPet: any = null;
 
 const petText = new PIXI.Text(`Your bet is ${selectedPet}! Good luck!`, style2);
 
-pig.on("pointerdown", () => {
-  selectedPet = "Pig";
-  betContainer.removeChildren();
-  petText.text = `Yor bet is ${selectedPet}! Good luck!`;
-  betContainer.addChild(petText);
-  bankContainer.removeChildren();
-  bank -= 20;
-  bankText.text = `Bank: ${bank}`;
-  bankContainer.addChild(bankText);
-});
+pig.select;
 
-cat.on("pointerdown", () => {
-  selectedPet = "Cat";
-  betContainer.removeChildren();
-  petText.text = `Yor bet is ${selectedPet}! Good luck!`;
-  betContainer.addChild(petText);
-  bankContainer.removeChildren();
-  bank -= 20;
-  bankText.text = `Bank: ${bank}`;
-  bankContainer.addChild(bankText);
-});
+cat.select;
 
-rabbit.on("pointerdown", () => {
-  selectedPet = "Rabbit";
-  betContainer.removeChildren();
-  petText.text = `Yor bet is ${selectedPet}! Good luck!`;
-  betContainer.addChild(petText);
-  bankContainer.removeChildren();
-  bank -= 20;
-  bankText.text = `Bank: ${bank}`;
-  bankContainer.addChild(bankText);
-});
+rabbit.select;
 
-dog.on("pointerdown", () => {
-  selectedPet = "Dog";
-  betContainer.removeChildren();
-  petText.text = `Yor bet is ${selectedPet}! Good luck!`;
-  betContainer.addChild(petText);
-  bankContainer.removeChildren();
-  bank -= 20;
-  bankText.text = `Bank: ${bank}`;
-  bankContainer.addChild(bankText);
-});
+dog.select;
 
 //  Check Bet Function
 
@@ -185,8 +182,8 @@ const pets = [cat, rabbit, dog, pig];
 function launch() {
   bankText.text = `Bank: ${bank}`;
   maskContainer.removeChildren();
-  const arrOfWinners: any = [];
-  arrOfWinners.length = 0;
+  const finishers: any = [];
+  finishers.length = 0;
   pets.forEach((pet) => {
     // Reset Implementation
     resetButton.on("pointerdown", () => {
@@ -206,30 +203,31 @@ function launch() {
         const index = pets.indexOf(pet);
 
         if (index + 1 === 1) {
-          arrOfWinners.push("Cat");
+          finishers.push("Cat");
+          console.log(cat.id);
         }
         if (index + 1 === 2) {
-          arrOfWinners.push("Rabbit");
+          finishers.push("Rabbit");
         }
         if (index + 1 === 3) {
-          arrOfWinners.push("Dog");
+          finishers.push("Dog");
         }
         if (index + 1 === 4) {
-          arrOfWinners.push("Pig");
+          finishers.push("Pig");
         }
         pet.stop();
-        if (arrOfWinners.length >= 4) {
+        if (finishers.length >= 4) {
           isEvent = false;
         }
 
-        console.log(arrOfWinners);
-        arrOfWinners.forEach((winner: any, index: any) => {
+        console.log(finishers);
+        finishers.forEach((winner: any, index: any) => {
           const text = new PIXI.Text(` ${index + 1}. ${winner}`, style);
           text.y = index * 60;
           maskContainer.addChild(text);
         });
 
-        checkBet(arrOfWinners[0]);
+        checkBet(finishers[0]);
       });
   });
   app.ticker.add(() => {
@@ -239,14 +237,16 @@ function launch() {
   updateCounter();
 }
 
+export { rabbit, cat, dog, pig };
+
 app.stage.addChild(
+  start,
   line,
   finish,
   cat,
   rabbit,
   dog,
   pig,
-  start,
   maskContainer,
   startButton,
   resetButton
