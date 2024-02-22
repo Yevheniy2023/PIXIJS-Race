@@ -23,7 +23,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.resetButton = exports.startButton = exports.maskContainer = exports.finish = exports.line = exports.start = exports.texturePig = exports.textureDog = exports.textureCat = exports.textureRabbit = void 0;
+exports.betContainer = exports.resetButton = exports.startButton = exports.listContainer = exports.finish = exports.line = exports.start = exports.texturePig = exports.textureDog = exports.textureCat = exports.textureRabbit = exports.counterContainer = exports.bankContainer = exports.treesSPrite = exports.cloudsSPrite = void 0;
 const PIXI = __importStar(require("pixi.js"));
 //  Rabbit Texture
 const rabbitImages = [
@@ -105,8 +105,7 @@ resetButton.y = 200;
 resetButton.eventMode = "static";
 resetButton.cursor = "pointer";
 //  Line
-const Graphics = PIXI.Graphics;
-const line = new Graphics();
+const line = new PIXI.Graphics();
 exports.line = line;
 line.lineStyle(5, "violet", 1).moveTo(145, 570).lineTo(145, 800);
 // Finish object
@@ -115,12 +114,26 @@ exports.finish = finish;
 finish.x = 1400;
 finish.y = 570;
 // Finish List
-let mask = new PIXI.Graphics();
-mask.beginFill(0xffffff);
-mask.drawRect(0, 0, 250, 300);
-mask.endFill();
-let maskContainer = new PIXI.Container();
-exports.maskContainer = maskContainer;
-maskContainer.mask = mask;
-maskContainer.addChild(mask);
-maskContainer.position.set(5, 5);
+let listContainer = new PIXI.Container();
+exports.listContainer = listContainer;
+listContainer.position.set(5, 5);
+//  Background clouds
+const cloudTexture = PIXI.Texture.from("img/clouds2.png");
+exports.cloudsSPrite = new PIXI.TilingSprite(cloudTexture, screen.width, screen.height / 4);
+//  Background Trees
+const treesTexture = PIXI.Texture.from("img/grass2.png");
+exports.treesSPrite = new PIXI.TilingSprite(treesTexture, screen.width, screen.height / 1);
+exports.treesSPrite.y = 180;
+//  Bank Container
+exports.bankContainer = new PIXI.Container();
+exports.bankContainer.x = 700;
+exports.bankContainer.y = 25;
+//  Bet Container
+const betContainer = new PIXI.Container();
+exports.betContainer = betContainer;
+betContainer.x = 500;
+betContainer.y = 200;
+//  Counter Container Number Race
+exports.counterContainer = new PIXI.Container();
+exports.counterContainer.x = 1300;
+exports.counterContainer.y = 25;

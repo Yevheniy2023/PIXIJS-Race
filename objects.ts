@@ -80,8 +80,7 @@ resetButton.eventMode = "static";
 resetButton.cursor = "pointer";
 
 //  Line
-const Graphics = PIXI.Graphics;
-const line = new Graphics();
+const line: PIXI.Graphics = new PIXI.Graphics();
 line.lineStyle(5, "violet", 1).moveTo(145, 570).lineTo(145, 800);
 
 // Finish object
@@ -90,16 +89,42 @@ finish.x = 1400;
 finish.y = 570;
 
 // Finish List
-let mask = new PIXI.Graphics();
+let listContainer: PIXI.Container = new PIXI.Container();
+listContainer.position.set(5, 5);
 
-mask.beginFill(0xffffff);
-mask.drawRect(0, 0, 250, 300);
-mask.endFill();
+//  Background clouds
+const cloudTexture = PIXI.Texture.from("img/clouds2.png");
+export const cloudsSPrite = new PIXI.TilingSprite(
+  cloudTexture,
+  screen.width,
+  screen.height / 4
+);
 
-let maskContainer = new PIXI.Container();
-maskContainer.mask = mask;
-maskContainer.addChild(mask);
-maskContainer.position.set(5, 5);
+//  Background Trees
+const treesTexture = PIXI.Texture.from("img/grass2.png");
+export const treesSPrite = new PIXI.TilingSprite(
+  treesTexture,
+  screen.width,
+  screen.height / 1
+);
+treesSPrite.y = 180;
+
+//  Bank Container
+export const bankContainer: PIXI.Container = new PIXI.Container();
+bankContainer.x = 700;
+bankContainer.y = 25;
+
+//  Bet Container
+const betContainer: PIXI.Container = new PIXI.Container();
+betContainer.x = 500;
+betContainer.y = 200;
+
+//  Counter Container Number Race
+export const counterContainer: PIXI.Container = new PIXI.Container();
+counterContainer.x = 1300;
+counterContainer.y = 25;
+
+
 
 export {
   textureRabbit,
@@ -109,7 +134,8 @@ export {
   start,
   line,
   finish,
-  maskContainer,
+  listContainer,
   startButton,
   resetButton,
+  betContainer,
 };
