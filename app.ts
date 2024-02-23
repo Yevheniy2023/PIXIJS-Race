@@ -56,21 +56,21 @@ class Player extends PIXI.AnimatedSprite {
     petText.text = `Your bet is ${selectedPet}! Good luck!`;
     betContainer.addChild(petText);
     bankContainer.removeChildren();
-    bank -= 20;
+    bank -= 2110;
     bankText.text = `Bank: ${bank}`;
     bankContainer.addChild(bankText);
 
-    if(selectedPet === rabbit.id) {
-      app.stage.addChild(chosenRabbit)
+    if (selectedPet === rabbit.id) {
+      app.stage.addChild(chosenRabbit);
     }
-    if(selectedPet === cat.id) {
-      app.stage.addChild(chosenCat)
+    if (selectedPet === cat.id) {
+      app.stage.addChild(chosenCat);
     }
-    if(selectedPet === dog.id) {
-      app.stage.addChild(chosenDog)
+    if (selectedPet === dog.id) {
+      app.stage.addChild(chosenDog);
     }
-    if(selectedPet === pig.id) {
-      app.stage.addChild(chosenPig)
+    if (selectedPet === pig.id) {
+      app.stage.addChild(chosenPig);
     }
   }
 }
@@ -103,7 +103,7 @@ function updateCounter() {
 }
 
 //  Update Bank
-let bank = 200;
+let bank = 1000;
 
 const bankText = new PIXI.Text(`Bank: ${bank}`, style);
 bankContainer.addChild(bankText);
@@ -122,13 +122,12 @@ const petText: PIXI.Text = new PIXI.Text(
   `Your bet is ${selectedPet}! Good luck!`,
   style2
 );
-if(!selectedPet) {
+if (!selectedPet) {
   pig.select;
   cat.select;
   rabbit.select;
   dog.select;
 }
-
 
 //  Check Bet Function
 const checkBet = (pet: string) => {
