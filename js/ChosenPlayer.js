@@ -38,11 +38,11 @@ class ChosenPlayer extends PIXI.Sprite {
     }
 }
 exports.ChosenPlayer = ChosenPlayer;
-const rabbitTexture = PIXI.Texture.from('./img/yellowRabbit/rabbit-selected.png');
+const rabbitTexture = PIXI.Texture.from('./img/yellowRabbit/chosenRabbit.png');
 exports.chosenRabbit = new ChosenPlayer(rabbitTexture, 80, 600, 85, 85);
 const catTexture = PIXI.Texture.from('./img/cat/chosenCat.png');
 exports.chosenCat = new ChosenPlayer(catTexture, 80, 545, 85, 85);
 const dogTexture = PIXI.Texture.from('./img/dog/chosenDog.png');
 exports.chosenDog = new ChosenPlayer(dogTexture, 80, 660, 90, 90);
 const pigTexture = PIXI.Texture.from('./img/piggy/chosenPig.png');
-exports.chosenPig = new ChosenPlayer(pigTexture, 80, 720, 140, 85);
+exports.chosenPig = new ChosenPlayer(pigTexture, 80, 710, 140, 85);

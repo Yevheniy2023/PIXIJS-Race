@@ -27,7 +27,6 @@ const app = new PIXI.Application({
   view: document.getElementById("game-canvas") as HTMLCanvasElement,
 });
 
-
 //  Class Player
 class Player extends PIXI.AnimatedSprite {
   id: string;
@@ -60,6 +59,7 @@ class Player extends PIXI.AnimatedSprite {
     bank -= 20;
     bankText.text = `Bank: ${bank}`;
     bankContainer.addChild(bankText);
+
     if(selectedPet === rabbit.id) {
       app.stage.addChild(chosenRabbit)
     }
@@ -88,7 +88,7 @@ let isEvent = false;
 startButton.on("pointerdown", () => {
   if (!isEvent) {
     isEvent = true;
-    launch();
+    startRace();
   }
 });
 
@@ -116,17 +116,19 @@ const betText: PIXI.Text = new PIXI.Text(
 betContainer.addChild(betText);
 
 //  Bet Pets Pointer Events
-let selectedPet: any = null;
+let selectedPet: any = false;
 
 const petText: PIXI.Text = new PIXI.Text(
   `Your bet is ${selectedPet}! Good luck!`,
   style2
 );
+if(!selectedPet) {
+  pig.select;
+  cat.select;
+  rabbit.select;
+  dog.select;
+}
 
-pig.select;
-cat.select;
-rabbit.select;
-dog.select;
 
 //  Check Bet Function
 const checkBet = (pet: string) => {
@@ -161,8 +163,9 @@ const checkBet = (pet: string) => {
 
 //  Function Launch
 const pets = [cat, rabbit, dog, pig];
-function launch() {
-  app.stage.removeChild(chosenRabbit,chosenCat,chosenDog,chosenPig)
+function startRace() {
+  resetButton.interactive = false;
+  app.stage.removeChild(chosenRabbit, chosenCat, chosenDog, chosenPig);
   bankText.text = `Bank: ${bank}`;
   listContainer.removeChildren();
   const finishers: any = [];
@@ -185,6 +188,7 @@ function launch() {
         pet.stop();
         if (finishers.length >= 4) {
           isEvent = false;
+          resetButton.interactive = true;
         }
         finishers.forEach((winner: any, index: any) => {
           const text = new PIXI.Text(` ${index + 1}. ${winner}`, style);
@@ -201,7 +205,6 @@ function launch() {
 }
 
 app.stage.addChild(
-
   cloudsSPrite,
   treesSPrite,
   start,
@@ -218,4 +221,3 @@ app.stage.addChild(
   betContainer,
   counterContainer
 );
-

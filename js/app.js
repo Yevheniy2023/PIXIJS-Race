@@ -90,7 +90,7 @@ let isEvent = false;
 objects_1.startButton.on("pointerdown", () => {
     if (!isEvent) {
         isEvent = true;
-        launch();
+        startRace();
     }
 });
 //  Update Counter Number Race
@@ -109,12 +109,14 @@ objects_1.bankContainer.addChild(bankText);
 const betText = new PIXI.Text(`Select your runner to bet on!`, styles_1.style2);
 objects_1.betContainer.addChild(betText);
 //  Bet Pets Pointer Events
-let selectedPet = null;
+let selectedPet = false;
 const petText = new PIXI.Text(`Your bet is ${selectedPet}! Good luck!`, styles_1.style2);
-pig.select;
-cat.select;
-rabbit.select;
-dog.select;
+if (!selectedPet) {
+    pig.select;
+    cat.select;
+    rabbit.select;
+    dog.select;
+}
 //  Check Bet Function
 const checkBet = (pet) => {
     const winnerText = new PIXI.Text(`${selectedPet} is winner! Congratulations!`, styles_1.style2);
@@ -137,7 +139,8 @@ const checkBet = (pet) => {
 };
 //  Function Launch
 const pets = [cat, rabbit, dog, pig];
-function launch() {
+function startRace() {
+    objects_1.resetButton.interactive = false;
     app.stage.removeChild(ChosenPlayer_1.chosenRabbit, ChosenPlayer_1.chosenCat, ChosenPlayer_1.chosenDog, ChosenPlayer_1.chosenPig);
     bankText.text = `Bank: ${bank}`;
     objects_1.listContainer.removeChildren();
@@ -161,6 +164,7 @@ function launch() {
             pet.stop();
             if (finishers.length >= 4) {
                 isEvent = false;
+                objects_1.resetButton.interactive = true;
             }
             finishers.forEach((winner, index) => {
                 const text = new PIXI.Text(` ${index + 1}. ${winner}`, styles_1.style);

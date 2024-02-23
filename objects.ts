@@ -124,8 +124,6 @@ export const counterContainer: PIXI.Container = new PIXI.Container();
 counterContainer.x = 1300;
 counterContainer.y = 25;
 
-
-
 export {
   textureRabbit,
   textureCat,
