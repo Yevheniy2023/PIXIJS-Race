@@ -14,7 +14,6 @@ import {
 } from "./objects";
 import { style, style2 } from "./styles";
 import * as TWEEN from "@tweenjs/tween.js";
-import gsap from "gsap";
 import { textureRabbit, textureCat, textureDog, texturePig } from "./objects";
 import { chosenRabbit, chosenCat, chosenDog, chosenPig } from "./ChosenPlayer";
 
@@ -131,15 +130,18 @@ if (!selectedPet) {
 
 //  Check Bet Function
 const checkBet = (pet: string) => {
-  const winnerText = new PIXI.Text(
-    `${selectedPet} is winner! Congratulations!`,
-    style2
-  );
+  console.log('error   !!!!');
 
-  //  Animated Text
-  const t1 = gsap.timeline({ repeat: -1, repeatDelay: 1 });
-  t1.to(winnerText.scale, { x: 1.2, y: 1.2, duration: 2 });
-  t1.to(winnerText.scale, { x: 1, y: 1, duration: 1.3 });
+
+  let winnerText = betContainer.getChildByName('winnerText')
+  if (!winnerText) {
+
+     winnerText = new PIXI.Text(
+      `${selectedPet} is winner! Congratulations!`,
+      style2
+    );
+    winnerText.name = 'winnerText'
+  }
 
   if (selectedPet === pet) {
     bank += 30;
@@ -147,7 +149,18 @@ const checkBet = (pet: string) => {
     betContainer.removeChildren();
     betContainer.addChild(winnerText);
 
-    t1.play();
+
+    const animatedText = new TWEEN.Tween({x: 1,y: 1})
+    .to({x:2, y: 2}, 1500)
+    .yoyo(true)
+    .repeat(10)
+    .onUpdate((data)=> {
+      winnerText?.scale.set(data.x,data.y)
+      console.log('scale',data);
+
+    })
+    .start()
+
   } else {
     betContainer.removeChildren();
     betContainer.addChild(
@@ -167,7 +180,7 @@ function startRace() {
   app.stage.removeChild(chosenRabbit, chosenCat, chosenDog, chosenPig);
   bankText.text = `Bank: ${bank}`;
   listContainer.removeChildren();
-  const finishers: any = [];
+  const finishers: string[]  = [];
   pets.forEach((pet) => {
     // Reset Implementation
     resetButton.on("pointerdown", () => {
@@ -194,11 +207,12 @@ function startRace() {
           text.y = index * 60;
           listContainer.addChild(text);
         });
-        checkBet(finishers[0]);
+        checkBet(pets[0].id);
       });
   });
   app.ticker.add(() => {
     TWEEN.update();
+
   });
   updateCounter();
 }
