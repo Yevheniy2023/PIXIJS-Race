@@ -15,7 +15,7 @@ import {
 import { style, style2 } from "./styles";
 import * as TWEEN from "@tweenjs/tween.js";
 import { textureRabbit, textureCat, textureDog, texturePig } from "./objects";
-import { chosenRabbit, chosenCat, chosenDog, chosenPig } from "./ChosenPlayer";
+import { Player } from "./Player";
 
 //  Pixi App
 const app = new PIXI.Application({
@@ -26,57 +26,11 @@ const app = new PIXI.Application({
   view: document.getElementById("game-canvas") as HTMLCanvasElement,
 });
 
-//  Class Player
-class Player extends PIXI.AnimatedSprite {
-  id: string;
-  constructor(
-    textures: PIXI.Texture[],
-    x: number,
-    y: number,
-    width: number,
-    height: number,
-    animationSpeed: number,
-    id: string
-  ) {
-    super(textures);
-    this.x = x;
-    this.y = y;
-    this.width = width;
-    this.height = height;
-    this.animationSpeed = animationSpeed;
-    this.anchor.set(0.5);
-    (this.eventMode = "static"), (this.cursor = "pointer"), (this.id = id);
+const cat = new Player(textureCat, 80, 545, 80, 80, "Cat");
+const rabbit = new Player(textureRabbit,80,600,80,80,'Rabbit')
+const dog = new Player(textureDog,80,660,80,80,'Dog')
+const pig = new Player(texturePig,80,700,120,100,'Pig')
 
-    this.on("pointerdown", this.select.bind(this));
-  }
-  select() {
-    selectedPet = this.id;
-    betContainer.removeChildren();
-    petText.text = `Your bet is ${selectedPet}! Good luck!`;
-    betContainer.addChild(petText);
-    bankContainer.removeChildren();
-    bank -= 2110;
-    bankText.text = `Bank: ${bank}`;
-    bankContainer.addChild(bankText);
-
-    if (selectedPet === rabbit.id) {
-      app.stage.addChild(chosenRabbit);
-    }
-    if (selectedPet === cat.id) {
-      app.stage.addChild(chosenCat);
-    }
-    if (selectedPet === dog.id) {
-      app.stage.addChild(chosenDog);
-    }
-    if (selectedPet === pig.id) {
-      app.stage.addChild(chosenPig);
-    }
-  }
-}
-const cat = new Player(textureCat, 80, 545, 80, 80, 0.4, "Cat");
-const rabbit = new Player(textureRabbit, 80, 600, 80, 80, 0.4, "Rabbit");
-const dog = new Player(textureDog, 80, 660, 80, 80, 0.2, "Dog");
-const pig = new Player(texturePig, 80, 710, 120, 80, 0.4, "Pig");
 
 app.ticker.add(function () {
   cloudsSPrite.tilePosition.x += 0.3;
@@ -121,12 +75,7 @@ const petText: PIXI.Text = new PIXI.Text(
   `Your bet is ${selectedPet}! Good luck!`,
   style2
 );
-if (!selectedPet) {
-  pig.select;
-  cat.select;
-  rabbit.select;
-  dog.select;
-}
+
 
 //  Check Bet Function
 const checkBet = (pet: string) => {
@@ -174,30 +123,40 @@ const checkBet = (pet: string) => {
 };
 
 //  Function Launch
-const pets = [cat, rabbit, dog, pig];
+const pets = [cat,rabbit,dog,pig];
 function startRace() {
   resetButton.interactive = false;
-  app.stage.removeChild(chosenRabbit, chosenCat, chosenDog, chosenPig);
   bankText.text = `Bank: ${bank}`;
   listContainer.removeChildren();
   const finishers: string[]  = [];
   pets.forEach((pet) => {
-    // Reset Implementation
+    pet.select("")
+      selectedPet = pet.id;
+      betContainer.removeChildren();
+      petText.text = `Your bet is ${selectedPet}! Good luck!`;
+      betContainer.addChild(petText);
+      bankContainer.removeChildren();
+      bank -= 2110;
+      bankText.text = `Bank: ${bank}`;
+      bankContainer.addChild(bankText);
+
+
+   // Reset Implementation
     resetButton.on("pointerdown", () => {
       betContainer.removeChildren();
       betContainer.addChild(betText);
-      pet.position.x = 80;
+      pet.animatedSprite.position.x = 80;
       selectedPet = null;
     });
     const speed = Math.random() * 2 + 1;
-    pet.play();
-    const tween = new TWEEN.Tween(pet);
+    pet.animatedSprite.play();
+    const tween = new TWEEN.Tween(pet.animatedSprite);
     tween
       .to({ x: 1500 }, speed * 999)
       .start()
       .onComplete(() => {
         finishers.push(pet.id);
-        pet.stop();
+        pet.animatedSprite.stop();
         if (finishers.length >= 4) {
           isEvent = false;
           resetButton.interactive = true;
@@ -210,6 +169,8 @@ function startRace() {
         checkBet(pets[0].id);
       });
   });
+
+
   app.ticker.add(() => {
     TWEEN.update();
 
@@ -223,10 +184,10 @@ app.stage.addChild(
   start,
   line,
   finish,
-  cat,
-  rabbit,
-  dog,
-  pig,
+  cat.animatedSprite,
+  rabbit.animatedSprite,
+  dog.animatedSprite,
+  pig.animatedSprite,
   listContainer,
   startButton,
   resetButton,

@@ -15,18 +15,16 @@ export class ChosenPlayer extends PIXI.Sprite {
     this.height = height;
     this.anchor.set(0.5)
   }
-  chose() {
-
-  }
+ 
 }
-const rabbitTexture = PIXI.Texture.from('./img/yellowRabbit/chosenRabbit.png')
-export const chosenRabbit = new ChosenPlayer(rabbitTexture,80,600,85,85)
+export const chosenRabbitTexture = PIXI.Texture.from('./img/yellowRabbit/chosenRabbit.png')
+export const chosenRabbit = new ChosenPlayer(chosenRabbitTexture,80,600,85,85)
 
-const catTexture = PIXI.Texture.from('./img/cat/chosenCat.png')
-export const chosenCat = new ChosenPlayer(catTexture,80,545,85,85)
+export const chosenCatTexture = PIXI.Texture.from('./img/cat/chosenCat.png')
+export const chosenCat = new ChosenPlayer(chosenCatTexture,80,545,85,85)
 
-const dogTexture = PIXI.Texture.from('./img/dog/chosenDog.png')
-export const chosenDog = new ChosenPlayer(dogTexture,80,660,90,90)
+export const chosenDogTexture = PIXI.Texture.from('./img/dog/chosenDog.png')
+export const chosenDog = new ChosenPlayer(chosenDogTexture,80,660,90,90)
 
-const pigTexture = PIXI.Texture.from('./img/piggy/chosenPig.png')
-export const chosenPig = new ChosenPlayer(pigTexture,80,710,140,85)
+export const chosenPigTexture = PIXI.Texture.from('./img/piggy/chosenPig.png')
+export const chosenPig = new ChosenPlayer(chosenPigTexture ,80,710,140,85)
