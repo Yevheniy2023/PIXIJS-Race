@@ -27,10 +27,9 @@ const app = new PIXI.Application({
 });
 
 const cat = new Player(textureCat, 80, 545, 80, 80, "Cat");
-const rabbit = new Player(textureRabbit,80,600,80,80,'Rabbit')
-const dog = new Player(textureDog,80,660,80,80,'Dog')
-const pig = new Player(texturePig,80,700,120,100,'Pig')
-
+const rabbit = new Player(textureRabbit, 80, 600, 80, 80, "Rabbit");
+const dog = new Player(textureDog, 80, 660, 80, 80, "Dog");
+const pig = new Player(texturePig, 80, 700, 120, 100, "Pig");
 
 app.ticker.add(function () {
   cloudsSPrite.tilePosition.x += 0.3;
@@ -56,7 +55,7 @@ function updateCounter() {
 }
 
 //  Update Bank
-let bank = 1000;
+let bank = 200;
 
 const bankText = new PIXI.Text(`Bank: ${bank}`, style);
 bankContainer.addChild(bankText);
@@ -69,27 +68,24 @@ const betText: PIXI.Text = new PIXI.Text(
 betContainer.addChild(betText);
 
 //  Bet Pets Pointer Events
-let selectedPet: any = false;
+let selectedPet: any = null;
 
 const petText: PIXI.Text = new PIXI.Text(
   `Your bet is ${selectedPet}! Good luck!`,
   style2
 );
 
-
 //  Check Bet Function
 const checkBet = (pet: string) => {
-  console.log('error   !!!!');
+  console.log("error   !!!!");
 
-
-  let winnerText = betContainer.getChildByName('winnerText')
+  let winnerText = betContainer.getChildByName("winnerText");
   if (!winnerText) {
-
-     winnerText = new PIXI.Text(
+    winnerText = new PIXI.Text(
       `${selectedPet} is winner! Congratulations!`,
       style2
     );
-    winnerText.name = 'winnerText'
+    winnerText.name = "winnerText";
   }
 
   if (selectedPet === pet) {
@@ -98,18 +94,15 @@ const checkBet = (pet: string) => {
     betContainer.removeChildren();
     betContainer.addChild(winnerText);
 
-
-    const animatedText = new TWEEN.Tween({x: 1,y: 1})
-    .to({x:2, y: 2}, 1500)
-    .yoyo(true)
-    .repeat(10)
-    .onUpdate((data)=> {
-      winnerText?.scale.set(data.x,data.y)
-      console.log('scale',data);
-
-    })
-    .start()
-
+    new TWEEN.Tween({ x: 1, y: 1 })
+      .to({ x: 1.3, y: 1.3 }, 1500)
+      .yoyo(true)
+      .repeat(10)
+      .onUpdate((data) => {
+        winnerText?.scale.set(data.x, data.y);
+        console.log("scale", data);
+      })
+      .start();
   } else {
     betContainer.removeChildren();
     betContainer.addChild(
@@ -121,32 +114,40 @@ const checkBet = (pet: string) => {
     );
   }
 };
+let isBet = false;
+//  Function StartRace
+const pets = [cat, rabbit, dog, pig];
+pets.forEach((pet) => {
 
-//  Function Launch
-const pets = [cat,rabbit,dog,pig];
+    pet.animatedSprite.on("pointerdown", () => {
+      if(!isBet) {
+      betContainer.removeChildren();
+      selectedPet = pet.id;
+      petText.text = `Your bet is ${pet.id}! Good luck!`;
+      betContainer.addChild(petText);
+      bankContainer.removeChildren();
+      bank -= 20;
+      bankText.text = `Bank: ${bank}`;
+      bankContainer.addChild(bankText);
+      isBet = true
+    }
+    });
+
+
+});
 function startRace() {
   resetButton.interactive = false;
   bankText.text = `Bank: ${bank}`;
   listContainer.removeChildren();
-  const finishers: string[]  = [];
+  const finishers: string[] = [];
   pets.forEach((pet) => {
-    pet.select("")
-      selectedPet = pet.id;
-      betContainer.removeChildren();
-      petText.text = `Your bet is ${selectedPet}! Good luck!`;
-      betContainer.addChild(petText);
-      bankContainer.removeChildren();
-      bank -= 2110;
-      bankText.text = `Bank: ${bank}`;
-      bankContainer.addChild(bankText);
-
-
-   // Reset Implementation
+    // Reset Implementation
     resetButton.on("pointerdown", () => {
       betContainer.removeChildren();
       betContainer.addChild(betText);
-      pet.animatedSprite.position.x = 80;
+      pet.startPosition();
       selectedPet = null;
+      isBet = false;
     });
     const speed = Math.random() * 2 + 1;
     pet.animatedSprite.play();
@@ -166,14 +167,12 @@ function startRace() {
           text.y = index * 60;
           listContainer.addChild(text);
         });
-        checkBet(pets[0].id);
+        checkBet(finishers[0]);
       });
   });
 
-
   app.ticker.add(() => {
     TWEEN.update();
-
   });
   updateCounter();
 }

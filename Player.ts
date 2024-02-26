@@ -1,8 +1,12 @@
 import * as PIXI from "pixi.js";
-import {chosenCatTexture, chosenRabbitTexture, chosenDogTexture, chosenPigTexture,
+import {
+  chosenCatTexture,
+  chosenRabbitTexture,
+  chosenDogTexture,
+  chosenPigTexture,
 } from "./ChosenPlayer";
 import { textureCat, textureRabbit, textureDog, texturePig } from "./objects";
-//  Class Player
+
 const petTexture = {
   Cat: textureCat,
   Rabbit: textureRabbit,
@@ -15,6 +19,8 @@ const chosenPetTexture = {
   Dog: chosenDogTexture,
   Pig: chosenPigTexture,
 };
+
+//  Class Player
 export class Player {
   id: "Cat" | "Rabbit" | "Dog" | "Pig";
   animatedSprite: PIXI.AnimatedSprite;
@@ -32,7 +38,7 @@ export class Player {
     this.animatedSprite.position.set(x, y);
     this.animatedSprite.width = width;
     this.animatedSprite.height = height;
-    this.animatedSprite.anchor.set(0.5)
+    this.animatedSprite.anchor.set(0.5);
     this.addEventListeners();
   }
 
@@ -46,12 +52,9 @@ export class Player {
     this.animatedSprite.on("pointerout", () => {
       this.animatedSprite.texture = petTexture[this.id][0];
     });
-    this.animatedSprite.on("pointerdown", () => {
-      this.animatedSprite.play();
-    });
   }
-  select() {
-    return this.animatedSprite
+  startPosition() {
+    this.animatedSprite.position.x = 80;
+     (this.animatedSprite.texture = petTexture[this.id][0]);
   }
 }
-
