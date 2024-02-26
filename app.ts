@@ -114,13 +114,13 @@ const checkBet = (pet: string) => {
     );
   }
 };
-let isBet = false;
+
 //  Function StartRace
+let isBet = false;
 const pets = [cat, rabbit, dog, pig];
 pets.forEach((pet) => {
-
-    pet.animatedSprite.on("pointerdown", () => {
-      if(!isBet) {
+  pet.animatedSprite.on("pointerdown", () => {
+    if (!isBet) {
       betContainer.removeChildren();
       selectedPet = pet.id;
       petText.text = `Your bet is ${pet.id}! Good luck!`;
@@ -129,11 +129,9 @@ pets.forEach((pet) => {
       bank -= 20;
       bankText.text = `Bank: ${bank}`;
       bankContainer.addChild(bankText);
-      isBet = true
+      isBet = true;
     }
-    });
-
-
+  });
 });
 function startRace() {
   resetButton.interactive = false;
@@ -161,13 +159,13 @@ function startRace() {
         if (finishers.length >= 4) {
           isEvent = false;
           resetButton.interactive = true;
+          checkBet(finishers[0]);
         }
         finishers.forEach((winner: any, index: any) => {
           const text = new PIXI.Text(` ${index + 1}. ${winner}`, style);
           text.y = index * 60;
           listContainer.addChild(text);
         });
-        checkBet(finishers[0]);
       });
   });
 
