@@ -55,9 +55,37 @@ function updateCounter() {
 }
 
 //  Update Bank
-let bank = 200;
+class Bank {
+  private _bank: number;
+  private _bankText: PIXI.Text;
+  public get bank() {
+    return this._bank;
+  }
+  public set bank(value: number) {
+    this._bank = value;
+    this._bankText.text = `Bank: ${this._bank}`;
+  }
+  constructor(bank: number, bankText: PIXI.Text) {
+    this._bank = bank;
+    this._bankText = bankText;
+    this.updateBank();
+  }
+   updateBank() {
+    this._bankText.text = `Bank: ${this._bank}`;
+  }
+  public bankPlus() {
+    this.bank += 100;
+    this.updateBank()
+  }
+  public bankMinus() {
+    this.bank -= 20;
+    this.updateBank()
+  }
+}
 
-const bankText = new PIXI.Text(`Bank: ${bank}`, style);
+const bankText = new PIXI.Text(`Bank :${200}`,style);
+let bank = new Bank(200, bankText);
+
 bankContainer.addChild(bankText);
 
 //  Update BetContainer
@@ -89,8 +117,8 @@ const checkBet = (pet: string) => {
   }
 
   if (selectedPet === pet) {
-    bank += 30;
-    bankText.text = `Bank: ${bank}`;
+    bank.bankPlus();
+    bankText.text = `Bank: ${bank.bank}`;
     betContainer.removeChildren();
     betContainer.addChild(winnerText);
 
@@ -126,8 +154,9 @@ pets.forEach((pet) => {
       petText.text = `Your bet is ${pet.id}! Good luck!`;
       betContainer.addChild(petText);
       bankContainer.removeChildren();
-      bank -= 20;
-      bankText.text = `Bank: ${bank}`;
+      bank.bankMinus();
+      bank.updateBank()
+      bankText.text = `Bank: ${bank.bank}`;
       bankContainer.addChild(bankText);
       isBet = true;
     }
@@ -135,7 +164,7 @@ pets.forEach((pet) => {
 });
 function startRace() {
   resetButton.interactive = false;
-  bankText.text = `Bank: ${bank}`;
+  bankText.text = `Bank: ${bank.bank}`;
   listContainer.removeChildren();
   const finishers: string[] = [];
   pets.forEach((pet) => {

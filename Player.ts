@@ -1,11 +1,9 @@
 import * as PIXI from "pixi.js";
-import {
-  chosenCatTexture,
-  chosenRabbitTexture,
-  chosenDogTexture,
-  chosenPigTexture,
-} from "./ChosenPlayer";
 import { textureCat, textureRabbit, textureDog, texturePig } from "./objects";
+const chosenRabbitTexture = PIXI.Texture.from("./img/yellowRabbit/chosenRabbit.png");
+const chosenCatTexture = PIXI.Texture.from("./img/cat/chosenCat.png");
+const chosenDogTexture = PIXI.Texture.from("./img/dog/chosenDog.png");
+const chosenPigTexture = PIXI.Texture.from("./img/piggy/chosenPig.png");
 
 const petTexture = {
   Cat: textureCat,
@@ -22,8 +20,14 @@ const chosenPetTexture = {
 
 //  Class Player
 export class Player {
-  id: "Cat" | "Rabbit" | "Dog" | "Pig";
-  animatedSprite: PIXI.AnimatedSprite;
+ private _animatedSprite: PIXI.AnimatedSprite;
+ private _id: "Cat" | "Rabbit" | "Dog" | "Pig";
+  public get id () {
+    return this._id
+  }
+  public get animatedSprite () {
+    return this._animatedSprite
+  }
 
   constructor(
     textures: PIXI.Texture[],
@@ -33,28 +37,28 @@ export class Player {
     height: number,
     id: "Cat" | "Rabbit" | "Dog" | "Pig"
   ) {
-    this.id = id;
-    this.animatedSprite = new PIXI.AnimatedSprite(textures);
-    this.animatedSprite.position.set(x, y);
-    this.animatedSprite.width = width;
-    this.animatedSprite.height = height;
-    this.animatedSprite.anchor.set(0.5);
+    this._id = id;
+    this._animatedSprite = new PIXI.AnimatedSprite(textures);
+    this._animatedSprite.position.set(x, y);
+    this._animatedSprite.width = width;
+    this._animatedSprite.height = height;
+    this._animatedSprite.anchor.set(0.5);
     this.addEventListeners();
   }
 
-  addEventListeners() {
-    this.animatedSprite.cursor = "pointer";
-    this.animatedSprite.interactive = true;
-    this.animatedSprite.on("pointerover", () => {
-      this.animatedSprite.texture = chosenPetTexture[this.id];
+ private addEventListeners() {
+    this._animatedSprite.cursor = "pointer";
+    this._animatedSprite.interactive = true;
+    this._animatedSprite.on("pointerover", () => {
+      this._animatedSprite.texture = chosenPetTexture[this.id];
     });
 
-    this.animatedSprite.on("pointerout", () => {
-      this.animatedSprite.texture = petTexture[this.id][0];
+    this._animatedSprite.on("pointerout", () => {
+      this._animatedSprite.texture = petTexture[this.id][0];
     });
   }
-  startPosition() {
-    this.animatedSprite.position.x = 80;
-     (this.animatedSprite.texture = petTexture[this.id][0]);
+ public startPosition() {
+    this._animatedSprite.position.x = 80;
+    this._animatedSprite.texture = petTexture[this.id][0];
   }
 }
