@@ -54,7 +54,7 @@ function updateCounter() {
   counterText.text = `Race №: ${count}`;
 }
 
-//  Update Bank
+//  Update Bank Class
 class Bank {
   private _bank: number;
   private _bankText: PIXI.Text;
@@ -70,20 +70,20 @@ class Bank {
     this._bankText = bankText;
     this.updateBank();
   }
-   updateBank() {
+  updateBank() {
     this._bankText.text = `Bank: ${this._bank}`;
   }
   public bankPlus() {
     this.bank += 100;
-    this.updateBank()
+    this.updateBank();
   }
   public bankMinus() {
     this.bank -= 20;
-    this.updateBank()
+    this.updateBank();
   }
 }
 
-const bankText = new PIXI.Text(`Bank :${200}`,style);
+const bankText = new PIXI.Text(``, style);
 let bank = new Bank(200, bankText);
 
 bankContainer.addChild(bankText);
@@ -155,7 +155,7 @@ pets.forEach((pet) => {
       betContainer.addChild(petText);
       bankContainer.removeChildren();
       bank.bankMinus();
-      bank.updateBank()
+      bank.updateBank();
       bankText.text = `Bank: ${bank.bank}`;
       bankContainer.addChild(bankText);
       isBet = true;
@@ -178,10 +178,8 @@ function startRace() {
     });
     const speed = Math.random() * 2 + 1;
     pet.animatedSprite.play();
-    const tween = new TWEEN.Tween(pet.animatedSprite);
-    tween
-      .to({ x: 1500 }, speed * 999)
-      .start()
+
+    pet.moveTweens(1500,speed * 999)
       .onComplete(() => {
         finishers.push(pet.id);
         pet.animatedSprite.stop();
