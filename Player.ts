@@ -1,36 +1,11 @@
 import * as PIXI from "pixi.js";
 import * as TWEEN from "@tweenjs/tween.js";
-import {
-  textureCat,
-  textureRabbit,
-  textureDog,
-  texturePig,
-  start,
-} from "./objects";
-const chosenRabbitTexture = PIXI.Texture.from(
-  "./img/yellowRabbit/chosenRabbit.png"
-);
-const chosenCatTexture = PIXI.Texture.from("./img/cat/chosenCat.png");
-const chosenDogTexture = PIXI.Texture.from("./img/dog/chosenDog.png");
-const chosenPigTexture = PIXI.Texture.from("./img/piggy/chosenPig.png");
-
-const petTexture = {
-  Cat: textureCat,
-  Rabbit: textureRabbit,
-  Dog: textureDog,
-  Pig: texturePig,
-};
-const chosenPetTexture = {
-  Cat: chosenCatTexture,
-  Rabbit: chosenRabbitTexture,
-  Dog: chosenDogTexture,
-  Pig: chosenPigTexture,
-};
+import { textureCat, textureRabbit, textureDog, texturePig } from "./objects";
 
 //  Class Player
 export class Player {
   private _animatedSprite: PIXI.AnimatedSprite;
-  private _id: "Cat" | "Rabbit" | "Dog" | "Pig";
+  private _id: string;
   public get id() {
     return this._id;
   }
@@ -44,7 +19,7 @@ export class Player {
     y: number,
     width: number,
     height: number,
-    id: "Cat" | "Rabbit" | "Dog" | "Pig"
+    id: string
   ) {
     this._id = id;
     this._animatedSprite = new PIXI.AnimatedSprite(textures);
@@ -59,16 +34,13 @@ export class Player {
     this._animatedSprite.cursor = "pointer";
     this._animatedSprite.interactive = true;
     this._animatedSprite.on("pointerover", () => {
-      this._animatedSprite.texture = chosenPetTexture[this.id];
-    });
-
-    this._animatedSprite.on("pointerout", () => {
-      this._animatedSprite.texture = petTexture[this.id][0];
-    });
+        this._animatedSprite.texture = PIXI.Texture.from(`./img/chosenPet/chosen${this.id}.png`);})
+      .on("pointerout", () => {
+        this._animatedSprite.texture = PIXI.Texture.from(`./img/${this._id}/${this._id}1.png`);});
   }
   public startPosition() {
     this._animatedSprite.position.x = 80;
-    this._animatedSprite.texture = petTexture[this.id][0];
+    this._animatedSprite.texture = PIXI.Texture.from(`./img/${this._id}/${this._id}1.png`);
   }
   public moveTweens(x: number, speed: number) {
     const tween = new TWEEN.Tween(this._animatedSprite);

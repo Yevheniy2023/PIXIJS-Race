@@ -2,55 +2,55 @@ import * as PIXI from "pixi.js";
 
 //  Rabbit Texture
 const rabbitImages = [
-  "img/yellowRabbit/rabbit1.png",
-  "img/yellowRabbit/rabbit2.png",
-  "img/yellowRabbit/rabbit3.png",
-  "img/yellowRabbit/rabbit4.png",
-  "img/yellowRabbit/rabbit5.png",
-  "img/yellowRabbit/rabbit6.png",
-  "img/yellowRabbit/rabbit7.png",
-  "img/yellowRabbit/rabbit8.png",
+  "img/Rabbit/rabbit1.png",
+  "img/Rabbit/rabbit2.png",
+  "img/Rabbit/rabbit3.png",
+  "img/Rabbit/rabbit4.png",
+  "img/Rabbit/rabbit5.png",
+  "img/Rabbit/rabbit6.png",
+  "img/Rabbit/rabbit7.png",
+  "img/Rabbit/rabbit8.png",
 ];
 const textureRabbit = rabbitImages.map((image) => PIXI.Texture.from(image));
 
 //  Dog Texture
 const dogImages = [
-  "img/dog/doggy1.png",
-  "img/dog/doggy2.png",
-  "img/dog/doggy3.png",
-  "img/dog/doggy4.png",
-  "img/dog/doggy5.png",
-  "img/dog/doggy6.png",
-  "img/dog/doggy7.png",
-  "img/dog/doggy8.png",
-  "img/dog/doggy9.png",
+  "img/Dog/dog1.png",
+  "img/Dog/dog2.png",
+  "img/Dog/dog3.png",
+  "img/Dog/dog4.png",
+  "img/Dog/dog5.png",
+  "img/Dog/dog6.png",
+  "img/Dog/dog7.png",
+  "img/Dog/dog8.png",
+  "img/Dog/dog9.png",
 ];
 const textureDog = dogImages.map((image) => PIXI.Texture.from(image));
 
 //  Pig Texture
 const pigImages = [
-  "img/piggy/pig1.png",
-  "img/piggy/pig2.png",
-  "img/piggy/pig3.png",
-  "img/piggy/pig4.png",
-  "img/piggy/pig5.png",
-  "img/piggy/pig6.png",
-  "img/piggy/pig7.png",
-  "img/piggy/pig8.png",
-  "img/piggy/pig9.png",
-  "img/piggy/pig10.png",
-  "img/piggy/pig11.png",
+  "img/Pig/pig1.png",
+  "img/Pig/pig2.png",
+  "img/Pig/pig3.png",
+  "img/Pig/pig4.png",
+  "img/Pig/pig5.png",
+  "img/Pig/pig6.png",
+  "img/Pig/pig7.png",
+  "img/Pig/pig8.png",
+  "img/Pig/pig9.png",
+  "img/Pig/pig10.png",
+  "img/Pig/pig11.png",
 ];
 const texturePig = pigImages.map((image) => PIXI.Texture.from(image));
 
 // //  Cat Texture
 const catImages = [
-  "img/cat/cat1.png",
-  "img/cat/cat2.png",
-  "img/cat/cat3.png",
-  "img/cat/cat4.png",
-  "img/cat/cat5.png",
-  "img/cat/cat6.png",
+  "img/Cat/cat1.png",
+  "img/Cat/cat2.png",
+  "img/Cat/cat3.png",
+  "img/Cat/cat4.png",
+  "img/Cat/cat5.png",
+  "img/Cat/cat6.png",
 ];
 const textureCat = catImages.map((image) => PIXI.Texture.from(image));
 

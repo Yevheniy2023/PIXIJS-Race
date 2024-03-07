@@ -16,6 +16,8 @@ import { style, style2 } from "./styles";
 import * as TWEEN from "@tweenjs/tween.js";
 import { textureRabbit, textureCat, textureDog, texturePig } from "./objects";
 import { Player } from "./Player";
+import { Bank } from "./Bank";
+import { credits,creditsBankText,creditsMinus,creditsPlus,counterText } from "./src/texts_consts";
 
 //  Pixi App
 const app = new PIXI.Application({
@@ -46,7 +48,6 @@ startButton.on("pointerdown", () => {
 
 //  Update Counter Number Race
 let count = 0;
-const counterText: PIXI.Text = new PIXI.Text(`Race №: `, style);
 counterContainer.addChild(counterText);
 
 function updateCounter() {
@@ -54,46 +55,18 @@ function updateCounter() {
   counterText.text = `Race №: ${count}`;
 }
 
-//  Update Bank Class
-class Bank {
-  private _bank: number;
-  private _bankText: PIXI.Text;
-  public get bank() {
-    return this._bank;
-  }
-  public set bank(value: number) {
-    this._bank = value;
-    this._bankText.text = `Bank: ${this._bank}`;
-  }
-  constructor(bank: number, bankText: PIXI.Text) {
-    this._bank = bank;
-    this._bankText = bankText;
-    this.updateBank();
-  }
-  updateBank() {
-    this._bankText.text = `Bank: ${this._bank}`;
-  }
-  public bankPlus() {
-    this.bank += 100;
-    this.updateBank();
-  }
-  public bankMinus() {
-    this.bank -= 20;
-    this.updateBank();
-  }
-}
 
-const bankText = new PIXI.Text(``, style);
-let bank = new Bank(200, bankText);
 
-bankContainer.addChild(bankText);
+let bank = new Bank(credits);
+
+
 
 //  Update BetContainer
-const betText: PIXI.Text = new PIXI.Text(
+const mainText: PIXI.Text = new PIXI.Text(
   `Select your runner to bet on!`,
   style2
 );
-betContainer.addChild(betText);
+betContainer.addChild(mainText);
 
 //  Bet Pets Pointer Events
 let selectedPet: any = null;
@@ -119,7 +92,7 @@ const findWinner = (pet: string) => {
 
     if (selectedPet === pet) {
       bank.bankPlus();
-      bankText.text = `Bank: ${bank.bank}`;
+
       betContainer.removeChildren();
       betContainer.addChild(winnerText);
 
@@ -133,15 +106,16 @@ const findWinner = (pet: string) => {
         })
         .start();
     } else {
-      betContainer.removeChildren();
-      betContainer.addChild(
-        new PIXI.Text(
-          `Unfortunately you lost this time.
-        Try again!`,
-          style2
-        )
-      );
-
+      // betContainer.removeChildren();
+      // betContainer.addChild(
+      //   new PIXI.Text(
+      //     `Unfortunately you lost this time.
+      //   Try again!`,
+      //     style2
+      //   )
+      // );
+      mainText.text = `Unfortunately you lost this time.
+      //   Try again!`
   }
 
 };
@@ -158,9 +132,6 @@ pets.forEach((pet) => {
       betContainer.addChild(petText);
       bankContainer.removeChildren();
       bank.bankMinus();
-      bank.updateBank();
-      bankText.text = `Bank: ${bank.bank}`;
-      bankContainer.addChild(bankText);
       isBet = true;
     }
   });
@@ -170,7 +141,7 @@ pets.forEach((pet) => {
 function startRace() {
 
   resetButton.interactive = false;
-  bankText.text = `Bank: ${bank.bank}`;
+  bank.updateBankText()
   listContainer.removeChildren();
   const finishers: string[] = [];
   const promises : Promise<void> [] = [];
@@ -178,7 +149,7 @@ function startRace() {
     // Reset Implementation
     resetButton.on("pointerdown", () => {
       betContainer.removeChildren();
-      betContainer.addChild(betText);
+      betContainer.addChild(mainText);
       pet.startPosition();
       selectedPet = null;
       isBet = false;
@@ -233,5 +204,6 @@ app.stage.addChild(
   resetButton,
   bankContainer,
   betContainer,
-  counterContainer
+  counterContainer,
+  bank.bankContainer
 );
