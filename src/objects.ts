@@ -115,9 +115,9 @@ bankContainer.x = 700;
 bankContainer.y = 25;
 
 //  Bet Container
-const betContainer: PIXI.Container = new PIXI.Container();
-betContainer.x = 500;
-betContainer.y = 200;
+const mainTextContainer: PIXI.Container = new PIXI.Container();
+mainTextContainer.x = 500;
+mainTextContainer.y = 200;
 
 //  Counter Container Number Race
 export const counterContainer: PIXI.Container = new PIXI.Container();
@@ -135,5 +135,5 @@ export {
   listContainer,
   startButton,
   resetButton,
-  betContainer,
+  mainTextContainer,
 };

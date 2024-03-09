@@ -1,6 +1,5 @@
 import * as PIXI from "pixi.js";
 import * as TWEEN from "@tweenjs/tween.js";
-import { textureCat, textureRabbit, textureDog, texturePig } from "./objects";
 
 //  Class Player
 export class Player {
@@ -19,7 +18,7 @@ export class Player {
     y: number,
     width: number,
     height: number,
-    id: string
+    id: string,
   ) {
     this._id = id;
     this._animatedSprite = new PIXI.AnimatedSprite(textures);
@@ -34,9 +33,10 @@ export class Player {
     this._animatedSprite.cursor = "pointer";
     this._animatedSprite.interactive = true;
     this._animatedSprite.on("pointerover", () => {
-        this._animatedSprite.texture = PIXI.Texture.from(`./img/chosenPet/chosen${this.id}.png`);})
-      .on("pointerout", () => {
-        this._animatedSprite.texture = PIXI.Texture.from(`./img/${this._id}/${this._id}1.png`);});
+    this._animatedSprite.texture = PIXI.Texture.from(`./img/chosenPet/chosen${this.id}.png`);})
+    .on("pointerout", () => {
+    this._animatedSprite.texture = PIXI.Texture.from(`./img/${this._id}/${this._id}1.png`);});
+
   }
   public startPosition() {
     this._animatedSprite.position.x = 80;
@@ -44,8 +44,11 @@ export class Player {
   }
   public moveTweens(x: number, speed: number) {
     const tween = new TWEEN.Tween(this._animatedSprite);
-    tween.to({ x: x }, speed).start();
+    tween.to({ x: x }, speed).start()
 
     return tween;
+  }
+ public click (onClick:()=> void) {
+    this._animatedSprite.on("pointerdown", onClick)
   }
 }

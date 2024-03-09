@@ -4,7 +4,7 @@ import {
   creditsBankText,
   creditsMinus,
   creditsPlus,
-} from "./src/texts_consts";
+} from "./texts_consts";
 
 //   Bank Class
 export class Bank {
@@ -37,3 +37,5 @@ export class Bank {
     this.bank = this._bank - creditsMinus;
   }
 }
+
+export let bank = new Bank(credits);
