@@ -20,7 +20,7 @@ import {
   textureDog,
   texturePig,
 } from "./src/objects";
-import { Player } from "./Player";
+import { Player } from "./src/Player";
 import { bank } from "./src/Bank";
 import { counterText } from "./src/texts_consts";
 import { mainText } from "./src/texts_consts";
