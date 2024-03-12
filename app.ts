@@ -11,13 +11,13 @@ import {
   startButton,
   resetButton,
   style,
-  style2,
+  style2
 } from "./objects";
 import * as TWEEN from "@tweenjs/tween.js";
 import gsap from "gsap";
 
 //  Pixi App
-const app = new PIXI.Application({
+export const app = new PIXI.Application({
   width: 1550,
   height: 750,
   backgroundColor: "lightblue",
@@ -55,6 +55,8 @@ startButton.on("pointerdown", () => {
     lounch();
   }
 });
+
+
 
 //  Counter Container Number Race
 let count = 0;
@@ -94,6 +96,7 @@ betContainer.x = 500;
 betContainer.y = 200;
 
 app.stage.addChild(betContainer);
+
 const betText = new PIXI.Text(`Select your runner to bet on!`, style2);
 betContainer.addChild(betText);
 
@@ -103,6 +106,7 @@ let selectedPet: any = null;
 const petText = new PIXI.Text(`Your bet is ${selectedPet}! Good luck!`, style2);
 
 pig.on("pointerdown", () => {
+
   selectedPet = "Pig";
   betContainer.removeChildren();
   petText.text = `Yor bet is ${selectedPet}! Good luck!`;
@@ -176,7 +180,6 @@ const checkBet = (pet: string) => {
     );
   }
 };
-
 
 //  Function Lounch
 const pets = [cat, rabbit, dog, pig];

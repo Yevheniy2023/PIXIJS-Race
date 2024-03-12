@@ -24,8 +24,8 @@
   "dependencies": {
     "@pixi/graphics-extras": "^7.4.0",
     "@tweenjs/tween.js": "^23.1.1",
-    "gsap": "^3.12.5",
     "pixi-tween": "^0.2.0",
-    "pixi.js": "^7.4.0"
+    "pixi.js": "^7.4.0",
+    "ts-loader": "^9.5.1"
   }
 }
